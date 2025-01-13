@@ -1,0 +1,9 @@
+prisma commands and further 
+npm install -D prisma 
+npx prisma init 
+
+
+
+
+
+in next js, we create a folder named as api which works as the route single route for sub routes, i.e. if we want to create a route to create a new hub, we can simply create a  new folder inside the api folder after and name it same as of the route we want and inside the folder create a new file called as route.ts here all the action from frontend to backend is done.
