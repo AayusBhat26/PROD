@@ -118,8 +118,8 @@ model Message {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@index([channelId])
-  @@index([memberId])
+  @@index([channelId, createdAt], name: "channel_recency")
+  @@index([memberId, deleted], name: "member_visibility")
 }
 
 // message modal for direct conversation.

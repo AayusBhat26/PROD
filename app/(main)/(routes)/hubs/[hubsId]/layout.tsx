@@ -36,11 +36,11 @@ const HubIdLayout = async ({
             return redirect("/")
       }
       return (<div className="h-full">
-            <div className="fixed inset-y-0 z-20 flex-col hidden h-full md:flex w-60">
+            <div className="fixed inset-y-0 z-20 flex-col hidden h-full w-50 md:flex">
                   {/* hidden md:flex h-full w-60 z-20 flex-col fixed inset-y-0 */}
                   <HubSidebar hubId={params.hubsId} />
             </div>
-            <main className="h-full md:pl-60">
+            <main className="h-full">
                   {children}
             </main>
 

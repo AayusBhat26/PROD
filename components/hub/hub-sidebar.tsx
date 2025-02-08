@@ -172,6 +172,7 @@ export const HubSidebar = async ({
                                           <div className="space-y-[2px]">
                                                 {textChannels.map((channel) => (
                                                       <SubHub
+                                                      se={server}
                                                             key={channel.id}
                                                             channel={channel}
                                                             role={role}
@@ -195,6 +196,8 @@ export const HubSidebar = async ({
                               <div className="space-y-[2px]">
                                     {audioChannels.map((channel) => (
                                           <SubHub
+                                          se={server}
+
                                                 key={channel.id}
                                                 channel={channel}
                                                 role={role}
@@ -215,6 +218,8 @@ export const HubSidebar = async ({
                               <div className="space-y-[2px]">
                                     {videoChannels.map((channel) => (
                                           <SubHub
+                                          se={server}
+                                          
                                                 key={channel.id}
                                                 channel={channel}
                                                 role={role}
@@ -234,6 +239,7 @@ export const HubSidebar = async ({
                               <div className="space-y-[2px]">
                                     {pomodoroChannels.map((channel) => (
                                           <SubHub
+                                          se={server}
                                                 key={channel.id}
                                                 channel={channel}
                                                 role={role}
@@ -252,6 +258,8 @@ export const HubSidebar = async ({
                               />
                               {taskChannels.map((channel) => (
                                     <SubHub
+                                    se={server}
+                                    
                                           key={channel.id}
                                           channel={channel}
                                           role={role}
@@ -270,6 +278,8 @@ export const HubSidebar = async ({
                                     />
                                     {drawingChannels.map((channel) => (
                                           <SubHub
+                                          se={server}
+                                          
                                                 key={channel.id}
                                                 channel={channel}
                                                 role={role}
@@ -289,6 +299,8 @@ export const HubSidebar = async ({
                               <div className="space-y-[2px]">
                                     {codeChannels.map((channel) => (
                                           <SubHub
+                                          se={server}
+                                          
                                                 key={channel.id}
                                                 channel={channel}
                                                 role={role}

@@ -10,6 +10,7 @@ import { ModeToggle } from "../mode-toggle";
 import { Indicator } from "../indicator";
 // framer motion
 import { motion } from "framer-motion";
+import { useTaskbarStore } from "@/hooks/use-taskbar-store";
 
 interface Server {
       id: string;
@@ -24,24 +25,19 @@ interface TaskbarNavigationClientProps {
 }
 
 const TaskbarNavigationClient: React.FC<TaskbarNavigationClientProps> = ({ servers }) => {
-      const [isVisible, setIsVisible] = useState<boolean>(true);
+      const { isVisible, toggleVisibility } = useTaskbarStore();
 
-      // Add event listener for the shortcut key
       useEffect(() => {
             const handleKeyPress = (event: KeyboardEvent) => {
-                  if (event.key === "i" && event.ctrlKey) { // Ctrl + H as the shortcut key
-                        setIsVisible((prev) => !prev);
+                  if (event.key === "i" && event.ctrlKey) {
+                        toggleVisibility();
                   }
             };
 
             window.addEventListener("keydown", handleKeyPress);
+            return () => window.removeEventListener("keydown", handleKeyPress);
+      }, [toggleVisibility]);
 
-            return () => {
-                  window.removeEventListener("keydown", handleKeyPress);
-            };
-      }, []);
-
-      // If not visible, render null
       if (!isVisible) return null;
 
       return (
@@ -49,36 +45,39 @@ const TaskbarNavigationClient: React.FC<TaskbarNavigationClientProps> = ({ serve
                   initial={{ opacity: 0.5, scale: 0.85 }}
                   animate={{ opacity: isVisible ? 1 : 0, scale: isVisible ? 1 : 0.95 }}
                   transition={{ duration: 0.5 }}
-                  className="space-y-4 flex flex-col items-center h-full text-black dark:text-white w-full dark:bg-[#19191b] bg-[#19191b ] py-2"
+                  className="fixed right-0 top-0 z-30 flex flex-col items-center 
+                        h-full w-[72px] 
+                        bg-white dark:bg-black 
+                        border-l border-gray-200 dark:bg-black
+                        py-3"
             >
                   <NavigationAction />
                   <Separator
-                        className="h-[2px] bg-blue-400 dark:bg-blue-800 rounded-md w-10 mx-auto"
+                        className="h-[2px] bg-zinc-300 dark:bg-zinc-700 rounded-md w-10 mx-auto my-2"
                   />
                   <ScrollArea className="flex-1 w-full">
-                        {servers.map((server) => (
-                              <div key={server.id} className="mb-4">
+                        <div className="px-2 space-y-2">
+                              {servers.map((server) => (
                                     <NavigationItem
+                                          key={server.id}
                                           id={server.id}
                                           name={server.name || 'Unknown'}
                                           imageUrl={server.imageUrl || '/default-image.png'}
                                           createdAt={server.createdAt}
                                     />
-                              </div>
-                        ))}
+                              ))}
+                        </div>
                   </ScrollArea>
-                  <div className="flex flex-col items-center pb-3 mt-auto gap-y-4 ">
+                  <div className="flex flex-col items-center mt-auto gap-y-4">
                         <ModeToggle />
                         <UserButton
                               afterSignOutUrl="/"
                               appearance={{
                                     elements: {
-                                          avatarBox: "h-[48px] w-[48px]"
+                                          avatarBox: "h-[42px] w-[42px]"
                                     }
                               }}
                         />
-                  </div>
-                  <div className="flex items-center ml-auto ">
                         <Indicator />
                   </div>
             </motion.div>
